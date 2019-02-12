@@ -101,7 +101,6 @@ body {
 .animation {
 	grid-row: 2 / 3;
 	grid-column: 2 / 3;
-	background-color: red;
 	z-index: 1;
 }
 
