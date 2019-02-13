@@ -4,7 +4,7 @@ const context = canvas.getContext('2d');
 const splashQuestion = document.querySelector('.splash-question');
 const form = document.querySelector('form');
 const habitField = document.querySelector('#habit-field')
-
+const completedButton = document.querySelector('.completedButton');
 
 document.addEventListener('DOMContentLoaded', function() {
    splashQuestion.classList.add("no-task-entered")
@@ -16,9 +16,7 @@ let userHabit = ''
 
 form.addEventListener("submit", e => {
 	e.preventDefault();
-	console.log(habitField.value)
 	userHabit = habitField.value;
-	console.log(userHabit)
 	splashQuestion.style.display = "none";
 	CreateHabitEl();
 })
@@ -60,6 +58,10 @@ rocketSideBooster.src = "rocketParts/spaceRocketParts_020.png"
 let rocketSideBoosterX = 0
 
 
+function drawNextImage() {
+	
+}
+
 function drawNozzle() {
 	context.drawImage(rocketNozzle,
 					  //source rectangle
@@ -69,17 +71,23 @@ function drawNozzle() {
 }
 
 
-function draw() {
-	drawNozzle()
-}
-
+//This is dangerous, because if all the images are not yet loaded the button will not do anything.
+//Consider a loading screen or a way to disable input.
+completedButton.addEventListener('click', e => {
+	if (imagesLoaded) {
+		drawNozzle()
+	}
+})
 
 
 //adapted from https://stackoverflow.com/questions/31299509/call-a-function-when-html5-canvas-is-ready
 //because the images load asychronously, wait for  all the images to load before calling the 
 //main animation frame for the first time
 
+let imagesLoaded = false
+
 var images = [
+			'rocketParts/picOne.png',
             'rocketParts/spaceRocketParts_017.png',
             'rocketParts/spaceRocketParts_009.png',
             'rocketParts/spaceRocketParts_015.png',
@@ -96,7 +104,7 @@ var loadImage = function(i) {
    --imagesLoading;
    // Call the complete callback when all images loaded.
    if (imagesLoading === 0) {
-     workDone();
+     imagesLoaded = true;
    }
  };
  img.src = images[i];
@@ -104,7 +112,7 @@ var loadImage = function(i) {
 
 // Call upon all images loaded.
 var workDone = function() {
-	requestAnimationFrame(main)
+	drawNozzle();
 }
 
 // Start to load all images
@@ -113,14 +121,3 @@ for(i = 0; i < imagesLoading; ++i) {
 	loadImage(i);
 }
 
-//resource for rAF and main loop: https://developer.mozilla.org/en-US/docs/Games/Anatomy
-//main loop for the game. Keeps track of time and calls draw function to compute and 
-//draw each frame once the player hits a button to start a game ("restart game" or "start game"). The
-//main animation loop starts
-let lastTime = 0;
-function main(time) {
-		requestAnimationFrame(main);
-		deltaTime = time - lastTime;
-		lastTime = time;
-		draw(deltaTime, time);
-}
