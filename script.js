@@ -31,30 +31,29 @@ function CreateHabitEl() {
 
 //create rocket image elements
 
-let rocketNozzleImg = document.createElement("img");
-rocketNozzleImg.src = "rocketParts/nozzle.png"
+let nozzleImg = document.createElement("img");
+nozzleImg.src = "rocketParts/nozzle.png"
 
-let rocketFrameBottomImg = document.createElement("img");
-rocketFrameBottomImg.src = "rocketParts/frameBottom.png"
+let frameBottomImg = document.createElement("img");
+frameBottomImg.src = "rocketParts/frameBottom.png"
 
-let rocketFrameMiddleImg = document.createElement("img");
-rocketFrameBottomImg.src = "rocketParts/frameMiddle.png"
+let frameMiddleImg = document.createElement("img");
+frameMiddleImg.src = "rocketParts/frameMiddle.png"
 
-let rocketFrameTopImg = document.createElement("img");
-rocketFrameTopImg.src = "rocketParts/frameTop.png"
+let frameTopImg = document.createElement("img");
+frameTopImg.src = "rocketParts/frameTop.png"
 
 let rocketWindowImg = document.createElement("img");
 rocketWindowImg.src = "rocketParts/window.png"
 
-let rocketNoseConeImg = document.createElement("img");
-rocketNoseConeImg.src = "rocketParts/noseCone.png"
+let noseConeImg = document.createElement("img");
+noseConeImg.src = "rocketParts/noseCone.png"
 
-let rocketSideBoosterImg = document.createElement("img");
-rocketSideBoosterImg.src = "rocketParts/sideBooster.png"
+let sideBoosterImg = document.createElement("img");
+sideBoosterImg.src = "rocketParts/sideBooster.png"
 
 //make sure all the images are loaded before trying to draw then in the canvas
 
-let imagesLoaded = false
 var images = [
 			'rocketParts/Nozzle.png',
 			'rocketParts/frameBottom.png',
@@ -88,91 +87,103 @@ for(i = 0; i < imagesLoading; ++i) {
 
 //Define the location of the images for drawing.
 
-rocketNozzle = {
-	width: 68,
-	height: 40,
-	xPos: 450,
-	yPos: 450
-};
+	let nozzle = {
+		image: nozzleImg,
+		width: 68,
+		height: 40,
+		xPos: 450,
+		yPos: 450
+	};
 
-frameBottom = {
-	width: 68,
-	height: 64,
-	xPos: 450,
-	yPos: 386
-};
+	let frameBottom = {
+		image: frameBottomImg,
+		width: 68,
+		height: 64,
+		xPos: 450,
+		yPos: 386
+	};
 
-frameMiddleLower = {
-	width: 68,
-	height: 64,
-	xPos: 450,
-	yPos: 322
-};
+	 let frameMiddleLower = {
+	 	image: frameMiddleImg,
+		width: 68,
+		height: 64,
+		xPos: 450,
+		yPos: 322
+	};
 
-frameMiddleUpper = {
-	width: 68,
-	height: 64,
-	xPos: 450,
-	yPos: 258
-}
+	let frameMiddleUpper = {
+		image: frameMiddleImg,
+		width: 68,
+		height: 64,
+		xPos: 450,
+		yPos: 258
+	}
 
-frameTop = {
-	width: 68,
-	height: 64,
-	xPos: 450,
-	yPos: 192
-};
+	let frameTop = {
+		image: frameTopImg,
+		width: 68,
+		height: 64,
+		xPos: 450,
+		yPos: 194
+	};
 
-rocketWindow = {
-	width: 28,
-	height: 28,
-	xPos: 470,
-	yPos: 208
-}
+	let rocketWindow = {
+		image: rocketWindowImg,
+		width: 28,
+		height: 28,
+		xPos: 470,
+		yPos: 210
+	}
 
-noseCone = {
-	width: 68,
-	height: 78,
-	xPos: 450,
-	yPos: 114
-}
+	let noseCone = {
+		image: noseConeImg,
+		width: 68,
+		height: 78,
+		xPos: 450,
+		yPos: 116
+	}
 
-leftSideBooster = { 422 365
-	width: 29,
-	height: 170,
-	xPos: 422,
-	yPos: 315
-}
+	let leftSideBooster = {
+		image: sideBoosterImg,
+		width: 29,
+		height: 170,
+		xPos: 422,
+		yPos: 315
+	}
 
-middleSideBooster = {468 346
-	width: 29,
-	height: 170,
-	xPos: 468,
-	yPos: 296
-}
+	let middleSideBooster = {
+		image: sideBoosterImg,
+		width: 29,
+		height: 170,
+		xPos: 468,
+		yPos: 296
+	}
 
-rightSideBooster = { 516 365
-	width: 29,
-	height: 170,
-	xPos: 516,
-	yPos: 315	
-}
+	let rightSideBooster = {
+		image: sideBoosterImg,
+		width: 29,
+		height: 170,
+		xPos: 516,
+		yPos: 315	
+	}
+
+let imagesDimAndPos = [nozzle, frameBottom, frameMiddleLower, frameMiddleUpper, 
+					   frameTop, rocketWindow, noseCone, leftSideBooster,
+					   middleSideBooster, rightSideBooster];
+
+nextImage = 0
 
 //When the completed button is pressed draw the next image.
 function drawNextImage() {
-	context.drawImage(rocketNozzleImg,
-					  //source rectangle
-					  0, 0, 68, 40,
-					  //destination rectange
-					  0,0,68,40);
-}
-
-function drawNozzle() {
-	context.drawImage(rocketNozzleImg,
-					  //source rectangle
-					  0, 0, 68, 64,
-					  //destination rectange
-					  0,0,68,40);
+	if (nextImage < imagesDimAndPos.length) {
+		context.drawImage(imagesDimAndPos[nextImage].image,
+				  //source rectangle
+				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+				  //destination rectange
+				  imagesDimAndPos[nextImage].xPos,imagesDimAndPos[nextImage].yPos, 
+				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height
+		);
+	}
 }
 
 
@@ -181,6 +192,7 @@ function drawNozzle() {
 completedButton.addEventListener('click', e => {
 	if (imagesLoaded) {
 		drawNextImage()
+		nextImage++
 	}
 })
 
