@@ -155,20 +155,6 @@ function drawNextImage() {
 	if (nextImage < imagesDimAndPos.length) {
 		runAnimation = true;
 		animateDroppingPart()
-		/*
-		context.drawImage(imagesDimAndPos[nextImage].image,
-				  //source rectangle
-				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
-				  //destination rectange
-				  imagesDimAndPos[nextImage].xPos,imagesDimAndPos[nextImage].yPos, 
-				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-		/*holding off on the fence for now. May not be worth it
-		if animating the drop of the part
-		draw the fence each time to keep it in front
-		context.drawImage(fenceImg,
-		  				  0, 0, 446, 113,
-		  				  259, 423, 446, 113)
-		 */
 	}
 }
 
@@ -178,26 +164,40 @@ function animateDroppingPart() {
 	requestAnimationFrame(main)
 }
 
+//Draw the next frame. To do this you first need to draw the previously drawn parts in their final positions.
+//Then, if the current part has reached it's final position draw it at it's final position and add it to the previously
+//drawn images. Finally, set the variables up for the next image.
 function drawImageDropFrame() {
-	//draw the already existing parts in their final positions
-	drawPreviouslyDroppedImages();
-	//draw the currrent part in it's next position
-	context.drawImage(imagesDimAndPos[nextImage].image,
+	if (startingYPos >= imagesDimAndPos[nextImage].finalYPos) {
+		drawPreviouslyDroppedImages();
+		context.drawImage(imagesDimAndPos[nextImage].image,
 				  //source rectangle
 				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
 				  //destination rectange
-				  imagesDimAndPos[nextImage].xPos, startingYPos, 
+				  imagesDimAndPos[nextImage].xPos, imagesDimAndPos[nextImage].finalYPos, 
 				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-	++startingYPos
-	//draw the fence
-	context.drawImage(fenceImg,
-  				  0, 0, 446, 113,
-  				  259, 423, 446, 113)
-	if (startingYPos > imagesDimAndPos[nextImage].finalYPos) {
+		context.drawImage(fenceImg,
+				  0, 0, 446, 113,
+				  259, 423, 446, 113)
 		runAnimation = false;
 		alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
 		startingYPos = 0;
 		nextImage++
+	} else {
+		//draw the already existing parts in their final positions
+		drawPreviouslyDroppedImages();
+		//draw the currrent part in it's next position
+		context.drawImage(imagesDimAndPos[nextImage].image,
+					  //source rectangle
+					  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+					  //destination rectange
+					  imagesDimAndPos[nextImage].xPos, startingYPos, 
+					  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
+		startingYPos+= 3
+		//draw the fence
+		context.drawImage(fenceImg,
+	  				  0, 0, 446, 113,
+	  				  259, 423, 446, 113)
 	}
 }
 
