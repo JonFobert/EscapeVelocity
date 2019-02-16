@@ -28,10 +28,13 @@ function CreateHabitEl() {
 	node.appendChild(textNode);
 }
 
-//create background image element
+//create background image elements
 
 let backgroundImg = document.createElement("img");
 backgroundImg.src = "otherImages/background.png";
+
+let fenceImg = document.createElement("img");
+fenceImg.src = "otherImages/fence.png";
 
 //create rocket image elements
 
@@ -55,8 +58,6 @@ noseConeImg.src = "rocketParts/noseCone.png"
 
 let sideBoosterImg = document.createElement("img");
 sideBoosterImg.src = "rocketParts/sideBooster.png"
-
-//make sure all the images are loaded before trying to draw then in the canvas
 
 
 //Define the location of the images for drawing.
@@ -91,7 +92,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		height: 64,
 		xPos: 450,
 		yPos: 258
-	}
+	};
 
 	let frameTop = {
 		image: frameTopImg,
@@ -107,7 +108,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		height: 28,
 		xPos: 470,
 		yPos: 210
-	}
+	};
 
 	let noseCone = {
 		image: noseConeImg,
@@ -115,7 +116,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		height: 78,
 		xPos: 450,
 		yPos: 116
-	}
+	};
 
 	let leftSideBooster = {
 		image: sideBoosterImg,
@@ -123,7 +124,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		height: 170,
 		xPos: 422,
 		yPos: 315
-	}
+	};
 
 	let middleSideBooster = {
 		image: sideBoosterImg,
@@ -155,12 +156,27 @@ function drawNextImage() {
 				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
 				  //destination rectange
 				  imagesDimAndPos[nextImage].xPos,imagesDimAndPos[nextImage].yPos, 
-				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height
-		);
+				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
+		//draw the fence each time to keep it in front
+		context.drawImage(fenceImg,
+		  				  0, 0, 446, 113,
+		  				  259, 423, 446, 113)
 	}
 }
 
 
+
+function drawBackground() {
+	imagesLoaded = true
+	context.drawImage(backgroundImg, 
+					  0, 0, 960, 540,
+					  0, 0, 960, 540)
+	context.drawImage(fenceImg,
+					  0, 0, 446, 113,
+					  259, 423, 446, 113)
+}
+
+let imagesLoaded = false
 //This is dangerous, because if all the images are not yet loaded the button will not do anything.
 //Consider a loading screen or a way to disable input.
 completedButton.addEventListener('click', e => {
@@ -170,17 +186,16 @@ completedButton.addEventListener('click', e => {
 	}
 })
 
-
 //adapted from https://stackoverflow.com/questions/31299509/call-a-function-when-html5-canvas-is-ready
 //because the images load asychronously, wait for all the images to load first
 //keeping this information up to date in two separate places is bad design.
 //See if you can find some other way to do this
 
 
-let imagesLoaded = false
-
 var images = [
-			'rocketParts/Nozzle.png',
+			'otherImages/background.png',
+			'otherImages/fence.png',
+			'rocketParts/nozzle.png',
 			'rocketParts/frameBottom.png',
             'rocketParts/frameMiddle.png',
             'rocketParts/frameTop.png',
@@ -198,7 +213,7 @@ var loadImage = function(i) {
    --imagesLoading;
    // Call the complete callback when all images loaded.
    if (imagesLoading === 0) {
-     imagesLoaded = true;
+     drawBackground();
    }
  };
  img.src = images[i];
@@ -209,8 +224,3 @@ var i;
 for(i = 0; i < imagesLoading; ++i) {
 	loadImage(i);
 }
-
-
-myImages = [
-
-]
