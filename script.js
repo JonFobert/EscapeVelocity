@@ -19,6 +19,8 @@ form.addEventListener("submit", e => {
 	userHabit = habitField.value;
 	splashQuestion.style.display = "none";
 	CreateHabitEl();
+		document.querySelector('.page-heading').classList.remove('heading-not-shown')
+	document.querySelector('.page-heading').classList.add('heading-shown')
 })
 
 function CreateHabitEl() {
