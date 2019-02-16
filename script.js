@@ -151,20 +151,37 @@ nextImage = 0
 //When the completed button is pressed draw the next image.
 function drawNextImage() {
 	if (nextImage < imagesDimAndPos.length) {
+		
 		context.drawImage(imagesDimAndPos[nextImage].image,
 				  //source rectangle
 				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
 				  //destination rectange
 				  imagesDimAndPos[nextImage].xPos,imagesDimAndPos[nextImage].yPos, 
 				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-		//draw the fence each time to keep it in front
+		/*hoding off on the fence for now. May not be worth it
+		if animating the drop of the part
+		draw the fence each time to keep it in front
 		context.drawImage(fenceImg,
 		  				  0, 0, 446, 113,
 		  				  259, 423, 446, 113)
+		 */
 	}
 }
 
+function animateDrawImage() {
+	requestAnimationFrame(main) {
 
+	}
+
+
+function main(time) {
+if(runAnimation) {
+	requestAnimationFrame(main);
+	deltaTime = time - lastTime;
+	lastTime = time;
+	draw(deltaTime, time);
+}
+}
 
 function drawBackground() {
 	imagesLoaded = true
