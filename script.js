@@ -146,19 +146,23 @@ let imagesDimAndPos = [nozzle, frameBottom, frameMiddleLower, frameMiddleUpper,
 					   frameTop, rocketWindow, noseCone, leftSideBooster,
 					   middleSideBooster, rightSideBooster];
 
-nextImage = 0
+let nextImage = 0
+let runAnimation = true;
 
 //When the completed button is pressed draw the next image.
 function drawNextImage() {
 	if (nextImage < imagesDimAndPos.length) {
-		
+		runAnimation = true;
+		console.log(runAnimation)
+		animateDroppingPart()
+		/*
 		context.drawImage(imagesDimAndPos[nextImage].image,
 				  //source rectangle
 				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
 				  //destination rectange
 				  imagesDimAndPos[nextImage].xPos,imagesDimAndPos[nextImage].yPos, 
 				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-		/*hoding off on the fence for now. May not be worth it
+		/*holding off on the fence for now. May not be worth it
 		if animating the drop of the part
 		draw the fence each time to keep it in front
 		context.drawImage(fenceImg,
@@ -168,19 +172,42 @@ function drawNextImage() {
 	}
 }
 
-function animateDrawImage() {
-	requestAnimationFrame(main) {
 
+
+function animateDroppingPart() {
+	requestAnimationFrame(main)
+	console.log(runAnimation)
+}
+
+function drawImageDropFrame() {
+	context.drawImage(imagesDimAndPos[nextImage].image,
+				  //source rectangle
+				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+				  //destination rectange
+				  imagesDimAndPos[nextImage].xPos,imagesDimAndPos[nextImage].yPos, 
+				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
+	--imagesDimAndPos[nextImage].yPos
+	if (imagesDimAndPos[nextImage].yPos <= 50) {
+		runAnimation = false
 	}
+}
 
+function animateNextFrame() {
+	context.clearRect(0, 0, canvas.width, canvas.height)
+	drawBackground();
+	drawImageDropFrame();
+}
 
 function main(time) {
-if(runAnimation) {
-	requestAnimationFrame(main);
-	deltaTime = time - lastTime;
-	lastTime = time;
-	draw(deltaTime, time);
-}
+	console.log(runAnimation)
+	if(runAnimation) {
+		requestAnimationFrame(main);
+		//deltaTime = time - lastTime;
+		//lastTime = time;
+		console.log('running animation!')
+		animateNextFrame();
+
+	}
 }
 
 function drawBackground() {
