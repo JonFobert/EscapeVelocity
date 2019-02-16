@@ -4,7 +4,7 @@ const context = canvas.getContext('2d');
 const splashQuestion = document.querySelector('.splash-question');
 const form = document.querySelector('form');
 const habitField = document.querySelector('#habit-field')
-const completedButton = document.querySelector('.completedButton');
+const completedButton = document.querySelector('.completed-button');
 
 document.addEventListener('DOMContentLoaded', function() {
    splashQuestion.classList.add("no-task-entered")
@@ -49,7 +49,7 @@ form.addEventListener("submit", e => {
 
 function CreateHabitEl() {
 	let node = document.querySelector('.habit-heading');
-	let textNode = document.createTextNode(`my new habit will be ${userHabit}`)
+	let textNode = document.createTextNode(`${userHabit}`)
 	node.appendChild(textNode);
 }
 

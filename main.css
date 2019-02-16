@@ -259,35 +259,28 @@ body {
 	display: none
 }
 
-
-/*
-
-.question-content {
-	justify-self: center;
-	align-self: center;
-	width: 300px;
-	height: 200px;
-	display: none;
-	/*display: grid;
-	grid-template-rows: 250px 100px;
-	background-color: #272726
+#habit-field {
+	font-size: 16px;
 }
 
-.question-content h1 {
-	justify-self: center;
-	align-self: center;
-	grid-row: 1 / 2;
-	font-size: 48px;
-	color: white;
+input[type="submit"] {
+	border-color: #074F57;
+	border-width: 3px;
+    border-radius: 6px;
+    background-color: #074F57;
+    color: white;
+    padding: 4px 8px 4px 8px;
+    margin-left: 10px;
 }
 
-.question-content form {
-	justify-self: center;
-	align-self: center;
-	grid-row: 2 / 3;
+input[type="submit"]:hover {
+	color: black;
+	background-color: white;
+	border-color: white;
 }
 
-*/
+
+
 .no-task-entered {
 	background-color: #0c0c0c9c;
 }
@@ -353,10 +346,25 @@ body {
 	z-index: 1;
 }
 
-
 .event-complete {
 	grid-row: 3 / 4;
 	grid-column: 2 / 3;
 	justify-self: center;
 	align-self: center;
+}
+
+.completed-button{
+	border-color: #074F57;
+	border-width: 3px;
+    border-radius: 6px;
+    background-color: #074F57;
+    color: white;
+    padding: 4px 8px 4px 8px;
+    margin-left: 10px;
+}
+
+.completed-button:hover {
+	color: black;
+	background-color: white;
+	border-color: #074F57;
 }
