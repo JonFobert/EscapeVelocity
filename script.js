@@ -28,6 +28,10 @@ function CreateHabitEl() {
 	node.appendChild(textNode);
 }
 
+//create background image element
+
+let backgroundImg = document.createElement("img");
+backgroundImg.src = "otherImages/background.png";
 
 //create rocket image elements
 
@@ -54,36 +58,6 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 
 //make sure all the images are loaded before trying to draw then in the canvas
 
-var images = [
-			'rocketParts/Nozzle.png',
-			'rocketParts/frameBottom.png',
-            'rocketParts/frameMiddle.png',
-            'rocketParts/frameTop.png',
-            'rocketParts/window.png',
-            'rocketParts/noseCone.png',
-            'rocketParts/sideBooster.png'
-          ];
-var imagesLoading = images.length;
-
-// Image loader.
-var loadImage = function(i) {
- var img = new Image();
- img.onload = function() {
-   images[i] = img;
-   --imagesLoading;
-   // Call the complete callback when all images loaded.
-   if (imagesLoading === 0) {
-     imagesLoaded = true;
-   }
- };
- img.src = images[i];
-};
-
-// Start to load all images
-var i;
-for(i = 0; i < imagesLoading; ++i) {
-	loadImage(i);
-}
 
 //Define the location of the images for drawing.
 
