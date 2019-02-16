@@ -22,7 +22,6 @@ form.addEventListener("submit", e => {
 })
 
 function CreateHabitEl() {
-	console.log(userHabit)
 	let node = document.querySelector('.habit-heading');
 	let textNode = document.createTextNode(`my new habit will be ${userHabit}`)
 	node.appendChild(textNode);
@@ -155,7 +154,6 @@ let startingYPos = 0;
 function drawNextImage() {
 	if (nextImage < imagesDimAndPos.length) {
 		runAnimation = true;
-		console.log(runAnimation)
 		animateDroppingPart()
 		/*
 		context.drawImage(imagesDimAndPos[nextImage].image,
@@ -181,7 +179,9 @@ function animateDroppingPart() {
 }
 
 function drawImageDropFrame() {
+	//draw the already existing parts in their final positions
 	drawPreviouslyDroppedImages();
+	//draw the currrent part in it's next position
 	context.drawImage(imagesDimAndPos[nextImage].image,
 				  //source rectangle
 				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
@@ -189,10 +189,15 @@ function drawImageDropFrame() {
 				  imagesDimAndPos[nextImage].xPos, startingYPos, 
 				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
 	++startingYPos
-	if (startingYPos >= imagesDimAndPos[nextImage].finalYPos) {
+	//draw the fence
+	context.drawImage(fenceImg,
+  				  0, 0, 446, 113,
+  				  259, 423, 446, 113)
+	if (startingYPos > imagesDimAndPos[nextImage].finalYPos) {
 		runAnimation = false;
 		alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
 		startingYPos = 0;
+		nextImage++
 	}
 }
 
@@ -216,7 +221,6 @@ function animateNextFrame() {
 }
 
 function main(time) {
-	console.log(runAnimation)
 	if(runAnimation) {
 		requestAnimationFrame(main);
 		//deltaTime = time - lastTime;
@@ -254,7 +258,6 @@ let imagesLoaded = false
 completedButton.addEventListener('click', e => {
 	if (imagesLoaded) {
 		drawNextImage()
-		nextImage++
 	}
 })
 
