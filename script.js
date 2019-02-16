@@ -14,14 +14,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
 let userHabit = ''
 
+document.querySelector('.first-card').addEventListener('click', e => {
+	console.log('fired!')
+	document.querySelector('.first-card').classList.add('hidden')
+	document.querySelector('.second-card').classList.remove('hidden')
+});
+
+document.querySelector('.second-card').addEventListener('click', e => {
+	document.querySelector('.second-card').classList.add('hidden')
+	document.querySelector('.third-card').classList.remove('hidden')
+});
+
+document.querySelector('.third-card').addEventListener('click', e => {
+	document.querySelector('.third-card').classList.add('hidden')
+	document.querySelector('.fourth-card').classList.remove('hidden')
+});
+
+document.querySelector('.fourth-card').addEventListener('click', e => {
+	document.querySelector('.fourth-card').classList.add('hidden')
+	document.querySelector('.fifth-card').classList.remove('hidden')
+});
+
+
 form.addEventListener("submit", e => {
 	e.preventDefault();
 	userHabit = habitField.value;
 	splashQuestion.style.display = "none";
 	CreateHabitEl();
-		document.querySelector('.page-heading').classList.remove('heading-not-shown')
+	document.querySelector('.page-heading').classList.remove('heading-not-shown')
 	document.querySelector('.page-heading').classList.add('heading-shown')
 })
+
+
 
 function CreateHabitEl() {
 	let node = document.querySelector('.habit-heading');

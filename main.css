@@ -1,3 +1,5 @@
+/*color Scheme: https://coolors.co/ac3939-b8d0a6-d5edf7-f8f8f8-e5625e   */
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -73,12 +75,200 @@ body {
 	display: grid;
 }
 
+/* -------First Card------- */
+
+.first-card {
+	position: relative;
+	width: 500px;
+	height: 350px;
+	color: white;
+	background-color: #272726;
+	justify-self: center;
+	align-self: center;
+	text-align: center;
+}
+
+.first-card h2 {
+	font-size: 30px;
+	margin-top: 40px;
+}
+
+.first-card h1 {
+	font-size: 48px;
+	margin-top: 70px;
+	font-family: 'Staatliches', cursive;
+}
+
+.first-card p {
+
+	position: absolute;
+    border: 0;
+    font-size: 30px;
+    padding-left: 200px;
+    bottom: 20px;
+    color: #2196f3;
+}
+
+.first-card p:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.first-card.hidden {
+	display: none
+}
+
+/* -------Second Card------- */
+
+.second-card {
+	position: relative;
+	width: 500px;
+	height: 350px;
+	color: white;
+	background-color: #272726;
+	justify-self: center;
+	align-self: center;
+	text-align: center;
+}
+
+.second-card h2 {
+	font-size: 30px;
+	margin: 40px 0px 0px 20px;
+    padding: 0px 30px 0px 30px;
+}
+
+.second-card p {
+	position: absolute;
+    border: 0;
+    font-size: 30px;
+    padding-left: 200px;
+    bottom: 20px;
+    color: #2196f3;
+}
+
+.second-card p:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.second-card.hidden {
+	display: none
+}
+
+/* -------Third Card------- */
+
+.third-card {
+	position: relative;
+	width: 500px;
+	height: 350px;
+	color: white;
+	background-color: #272726;
+	justify-self: center;
+	align-self: center;
+	text-align: center;
+}
+
+.third-card h2 {
+	font-size: 30px;
+	margin: 40px 0px 0px 20px;
+    padding: 0px 30px 0px 30px;
+}
+
+.third-card p {
+	position: absolute;
+    border: 0;
+    font-size: 30px;
+    padding-left: 200px;
+    bottom: 20px;
+    color: #2196f3;
+}
+
+.third-card p:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.third-card.hidden {
+	display: none
+}
+
+/* -------Fourth Card------- */
+
+.fourth-card {
+	position: relative;
+	width: 500px;
+	height: 350px;
+	color: white;
+	background-color: #272726;
+	justify-self: center;
+	align-self: center;
+	text-align: center;
+}
+
+.fourth-card h2 {
+	font-size: 30px;
+	margin: 40px 0px 0px 0px;
+    padding: 0px 30px 0px 30px;
+}
+
+.fourth-card h1 {
+	font-size: 48px;
+	font-family: 'Staatliches', cursive;
+	padding-top: 30px
+}
+
+.fourth-card p {
+	position: absolute;
+    border: 0;
+    font-size: 30px;
+    padding-left: 200px;
+    bottom: 20px;
+    color: #2196f3;
+}
+
+.fourth-card p:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.fourth-card.hidden {
+	display: none
+}
+
+
+/* -------Fifth Card------- */
+
+.fifth-card {
+	position: relative;
+	width: 500px;
+	height: 350px;
+	color: white;
+	background-color: #272726;
+	justify-self: center;
+	align-self: center;
+	text-align: center;
+}
+
+.fifth-card h2 {
+	font-size: 30px;
+	margin: 40px 0px 0px 0px;
+    padding: 0px 30px 100px 30px;
+}
+
+.fifth-card.hidden {
+	display: none
+}
+
+
+/*
+
 .question-content {
 	justify-self: center;
 	align-self: center;
 	width: 300px;
 	height: 200px;
-	display: grid;
+	display: none;
+	/*display: grid;
 	grid-template-rows: 250px 100px;
 	background-color: #272726
 }
@@ -97,6 +287,7 @@ body {
 	grid-row: 2 / 3;
 }
 
+*/
 .no-task-entered {
 	background-color: #0c0c0c9c;
 }
