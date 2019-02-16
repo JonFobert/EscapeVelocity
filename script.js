@@ -67,7 +67,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 68,
 		height: 40,
 		xPos: 450,
-		yPos: 450
+		finalYPos: 450
 	};
 
 	let frameBottom = {
@@ -75,7 +75,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 68,
 		height: 64,
 		xPos: 450,
-		yPos: 386
+		finalYPos: 386
 	};
 
 	 let frameMiddleLower = {
@@ -83,7 +83,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 68,
 		height: 64,
 		xPos: 450,
-		yPos: 322
+		finalYPos: 322
 	};
 
 	let frameMiddleUpper = {
@@ -91,7 +91,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 68,
 		height: 64,
 		xPos: 450,
-		yPos: 258
+		finalYPos: 258
 	};
 
 	let frameTop = {
@@ -99,7 +99,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 68,
 		height: 64,
 		xPos: 450,
-		yPos: 194
+		finalYPos: 194
 	};
 
 	let rocketWindow = {
@@ -107,7 +107,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 28,
 		height: 28,
 		xPos: 470,
-		yPos: 210
+		finalYPos: 210
 	};
 
 	let noseCone = {
@@ -115,7 +115,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 68,
 		height: 78,
 		xPos: 450,
-		yPos: 116
+		finalYPos: 116
 	};
 
 	let leftSideBooster = {
@@ -123,7 +123,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 29,
 		height: 170,
 		xPos: 422,
-		yPos: 315
+		finalYPos: 315
 	};
 
 	let middleSideBooster = {
@@ -131,7 +131,7 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 29,
 		height: 170,
 		xPos: 468,
-		yPos: 296
+		finalYPos: 296
 	}
 
 	let rightSideBooster = {
@@ -139,15 +139,17 @@ sideBoosterImg.src = "rocketParts/sideBooster.png"
 		width: 29,
 		height: 170,
 		xPos: 516,
-		yPos: 315	
+		finalYPos: 315	
 	}
 
 let imagesDimAndPos = [nozzle, frameBottom, frameMiddleLower, frameMiddleUpper, 
 					   frameTop, rocketWindow, noseCone, leftSideBooster,
 					   middleSideBooster, rightSideBooster];
 
-let nextImage = 0
+let nextImage = 0;
 let runAnimation = true;
+let alreadyAnimatedImages = [];
+let startingYPos = 0;
 
 //When the completed button is pressed draw the next image.
 function drawNextImage() {
@@ -176,20 +178,35 @@ function drawNextImage() {
 
 function animateDroppingPart() {
 	requestAnimationFrame(main)
-	console.log(runAnimation)
 }
 
 function drawImageDropFrame() {
+	drawPreviouslyDroppedImages();
 	context.drawImage(imagesDimAndPos[nextImage].image,
 				  //source rectangle
 				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
 				  //destination rectange
-				  imagesDimAndPos[nextImage].xPos,imagesDimAndPos[nextImage].yPos, 
+				  imagesDimAndPos[nextImage].xPos, startingYPos, 
 				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-	--imagesDimAndPos[nextImage].yPos
-	if (imagesDimAndPos[nextImage].yPos <= 50) {
-		runAnimation = false
+	++startingYPos
+	if (startingYPos >= imagesDimAndPos[nextImage].finalYPos) {
+		runAnimation = false;
+		alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
+		startingYPos = 0;
 	}
+}
+
+function drawPreviouslyDroppedImages() {
+	alreadyAnimatedImages.forEach(image => {
+		context.drawImage(image.image,
+				  //source rectangle
+				  0, 0, image.width, image.height,
+				  //destination rectange
+				  image.xPos, image.finalYPos, 
+				  image.width, image.height
+		)
+	});
+	
 }
 
 function animateNextFrame() {
@@ -204,11 +221,22 @@ function main(time) {
 		requestAnimationFrame(main);
 		//deltaTime = time - lastTime;
 		//lastTime = time;
-		console.log('running animation!')
 		animateNextFrame();
 
 	}
 }
+
+//When the button is hit:
+//	Drop the part down to it's position
+//  stop at a specific point
+//When the button is hit again
+//	keep the first part it it's position
+//	drop the second part down
+//When the button is hit again etc...
+
+//when you are dropping the first part you need to keep the second one stationary. To do this: when you reach the end of an image
+//being dropped add that image and it's x and y pos to an array.
+//Then when drawing the next image first loop through the array and draw the original images in their fixed positions.
 
 function drawBackground() {
 	imagesLoaded = true

@@ -104,6 +104,7 @@ body {
 	z-index: 1;
 }
 
+
 .event-complete {
 	grid-row: 3 / 4;
 	grid-column: 2 / 3;
