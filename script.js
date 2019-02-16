@@ -40,17 +40,20 @@ form.addEventListener("submit", e => {
 	e.preventDefault();
 	userHabit = habitField.value;
 	splashQuestion.style.display = "none";
-	CreateHabitEl();
+	createHabitEl();
 	document.querySelector('.page-heading').classList.remove('heading-not-shown')
 	document.querySelector('.page-heading').classList.add('heading-shown')
 })
 
 
 
-function CreateHabitEl() {
-	let node = document.querySelector('.habit-heading');
-	let textNode = document.createTextNode(`${userHabit}`)
-	node.appendChild(textNode);
+function createHabitEl() {
+	let headingNode = document.querySelector('.habit-heading');
+	let headingTextNode = document.createTextNode(`My New Habit Will Be:`)
+	headingNode.appendChild(headingTextNode);
+	let valueNode = document.querySelector('.new-habit-value');
+	let valueTextNode = document.createTextNode(`${userHabit}`)
+	valueNode.appendChild(valueTextNode);
 }
 
 //create background image elements
