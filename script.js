@@ -64,10 +64,13 @@ function createHabitEl() {
 //create background image elements
 
 let backgroundImg = document.createElement("img");
-backgroundImg.src = "otherImages/background.png";
+backgroundImg.src = "otherImages/backgroundNew.png";
 
 let fenceImg = document.createElement("img");
 fenceImg.src = "otherImages/fence.png";
+
+let fuelEFImg = document.createElement("img");
+fuelEFImg.src = "otherImages/EF.png"
 
 //create rocket image elements
 
@@ -214,6 +217,9 @@ function drawImageDropFrame() {
 		context.drawImage(fenceImg,
 				  0, 0, 446, 113,
 				  259, 423, 446, 113)
+		context.drawImage(fuelEFImg, 
+					  0, 0, 960, 540,
+					  0, 0, 960, 540)
 		runAnimation = false;
 		alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
 		startingYPos = -150;
@@ -287,6 +293,9 @@ function drawBackground() {
 	context.drawImage(fenceImg,
 					  0, 0, 446, 113,
 					  259, 423, 446, 113)
+	context.drawImage(fuelEFImg, 
+			  0, 0, 960, 540,
+			  0, 0, 960, 540)
 }
 
 let imagesLoaded = false
@@ -305,8 +314,9 @@ completedButton.addEventListener('click', e => {
 
 
 var images = [
-			'otherImages/background.png',
+			'otherImages/backgroundNew.png',
 			'otherImages/fence.png',
+			'otherImages/EF.png',
 			'rocketParts/nozzle.png',
 			'rocketParts/frameBottom.png',
             'rocketParts/frameMiddle.png',
