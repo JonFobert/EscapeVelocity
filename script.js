@@ -1,3 +1,5 @@
+//x 913 to 940   y 492 to 84
+
 const canvas = document.querySelector('.animation');
 const context = canvas.getContext('2d');
 
@@ -188,20 +190,6 @@ let runAnimation = true;
 let alreadyAnimatedImages = [];
 let startingYPos = -150;
 
-//When the completed button is pressed draw the next image.
-function drawNextImage() {
-	if (nextImage < imagesDimAndPos.length) {
-		runAnimation = true;
-		animateDroppingPart()
-	}
-}
-
-
-
-function animateDroppingPart() {
-	requestAnimationFrame(main)
-}
-
 //Draw the next frame. To do this you first need to draw the previously drawn parts in their final positions.
 //Then, if the current part has reached it's final position draw it at it's final position and add it to the previously
 //drawn images. Finally, set the variables up for the next image.
@@ -241,6 +229,9 @@ function drawImageDropFrame() {
 		context.drawImage(fenceImg,
 	  				  0, 0, 446, 113,
 	  				  259, 423, 446, 113)
+		context.drawImage(fuelEFImg, 
+					  0, 0, 960, 540,
+					  0, 0, 960, 540)
 	}
 }
 
@@ -257,10 +248,23 @@ function drawPreviouslyDroppedImages() {
 	
 }
 
+//x 913 to 940   y 492 to 84
+
+function drawAddFuel() {
+	runAnimation = false
+	context.rect(913, 400, 27, 92)
+	context.fillStyle = "red";
+	context.fill();
+}
+
 function animateNextFrame() {
 	context.clearRect(0, 0, canvas.width, canvas.height)
 	drawBackground();
+	if (nextImage >= imagesDimAndPos.length) {
+		drawAddFuel()
+	} else {
 	drawImageDropFrame();
+	}
 }
 
 function main(time) {
@@ -296,6 +300,14 @@ function drawBackground() {
 	context.drawImage(fuelEFImg, 
 			  0, 0, 960, 540,
 			  0, 0, 960, 540)
+}
+
+//When the completed button is pressed draw the next image.
+function drawNextImage() {
+	if (nextImage < imagesDimAndPos.length + 10) {
+		runAnimation = true;
+		requestAnimationFrame(main)
+	}
 }
 
 let imagesLoaded = false
