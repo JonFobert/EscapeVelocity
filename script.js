@@ -46,8 +46,7 @@ form.addEventListener("submit", e => {
 })
 
 function dayUpdate() {
-	let replacementText = "DAY 2"
-	document.querySelector('.test').firstChild.nodeValue = replacementText
+	document.querySelector('.test').firstChild.nodeValue = `Day ${DayCounter}`
 	
 	console.log("fired day update")
 	console.log(document.querySelector('.test'))
@@ -181,6 +180,7 @@ let imagesDimAndPos = [nozzle, frameBottom, frameMiddleLower, frameMiddleUpper,
 					   middleSideBooster, rightSideBooster];
 
 let nextImage = 0;
+let DayCounter = 1;
 let runAnimation = true;
 let alreadyAnimatedImages = [];
 let startingYPos = -150;
@@ -218,7 +218,8 @@ function drawImageDropFrame() {
 		alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
 		startingYPos = -150;
 		nextImage++
-		dayUpdate()
+		DayCounter++
+		dayUpdate() 
 	} else {
 		//draw the already existing parts in their final positions
 		drawPreviouslyDroppedImages();
