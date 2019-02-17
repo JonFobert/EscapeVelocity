@@ -177,7 +177,7 @@ let imagesDimAndPos = [nozzle, frameBottom, frameMiddleLower, frameMiddleUpper,
 let nextImage = 0;
 let runAnimation = true;
 let alreadyAnimatedImages = [];
-let startingYPos = 0;
+let startingYPos = -150;
 
 //When the completed button is pressed draw the next image.
 function drawNextImage() {
@@ -210,7 +210,7 @@ function drawImageDropFrame() {
 				  259, 423, 446, 113)
 		runAnimation = false;
 		alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
-		startingYPos = 0;
+		startingYPos = -150;
 		nextImage++
 	} else {
 		//draw the already existing parts in their final positions
@@ -222,7 +222,7 @@ function drawImageDropFrame() {
 					  //destination rectange
 					  imagesDimAndPos[nextImage].xPos, startingYPos, 
 					  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-		startingYPos+= 3
+		startingYPos+= 6
 		//draw the fence
 		context.drawImage(fenceImg,
 	  				  0, 0, 446, 113,
