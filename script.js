@@ -45,7 +45,13 @@ form.addEventListener("submit", e => {
 	document.querySelector('.page-heading').classList.add('heading-shown')
 })
 
-
+function dayUpdate() {
+	let replacementText = "DAY 2"
+	document.querySelector('.test').firstChild.nodeValue = replacementText
+	
+	console.log("fired day update")
+	console.log(document.querySelector('.test'))
+}
 
 function createHabitEl() {
 	let headingNode = document.querySelector('.habit-heading');
@@ -212,6 +218,7 @@ function drawImageDropFrame() {
 		alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
 		startingYPos = -150;
 		nextImage++
+		dayUpdate()
 	} else {
 		//draw the already existing parts in their final positions
 		drawPreviouslyDroppedImages();
