@@ -186,6 +186,8 @@ let imagesDimAndPos = [nozzle, frameBottom, frameMiddleLower, frameMiddleUpper,
 
 let nextImage = 0;
 let DayCounter = 1;
+let fuelLevel = 0
+let daysFuelAdded = 0
 let runAnimation = true;
 let alreadyAnimatedImages = [];
 let startingYPos = -150;
@@ -235,6 +237,7 @@ function drawImageDropFrame() {
 	}
 }
 
+
 function drawPreviouslyDroppedImages() {
 	alreadyAnimatedImages.forEach(image => {
 		context.drawImage(image.image,
@@ -248,22 +251,34 @@ function drawPreviouslyDroppedImages() {
 	
 }
 
-//x 913 to 940   y 492 to 84
+//x 913 to 940   y 492 to 84. 492 - 84 = 408
+
 
 function drawAddFuel() {
-	runAnimation = false
-	context.rect(913, 400, 27, 92)
-	context.fillStyle = "red";
-	context.fill();
+	if (fuelLevel < (24 + daysFuelAdded * 24)) {
+			console.log("called drawAddFuel()")
+			context.rect(913, 492, 27, -fuelLevel)
+			context.fillStyle = "red";
+			context.fill();
+			fuelLevel += 2
+		}
+	else {
+		context.rect(913, 492, 27, -fuelLevel)
+		context.fillStyle = "red";
+		context.fill();
+		daysFuelAdded++
+		runAnimation = false
+	}
 }
 
 function animateNextFrame() {
 	context.clearRect(0, 0, canvas.width, canvas.height)
 	drawBackground();
-	if (nextImage >= imagesDimAndPos.length) {
-		drawAddFuel()
+	if (nextImage < imagesDimAndPos.length) {
+		drawImageDropFrame();
 	} else {
-	drawImageDropFrame();
+		console.log("called animateNextFrame()")
+		drawAddFuel()
 	}
 }
 
@@ -273,7 +288,6 @@ function main(time) {
 		//deltaTime = time - lastTime;
 		//lastTime = time;
 		animateNextFrame();
-
 	}
 }
 
@@ -304,10 +318,12 @@ function drawBackground() {
 
 //When the completed button is pressed draw the next image.
 function drawNextImage() {
-	if (nextImage < imagesDimAndPos.length + 10) {
+	//if (nextImage < imagesDimAndPos.length + 10) {
 		runAnimation = true;
 		requestAnimationFrame(main)
-	}
+		
+		console.log(daysFuelAdded)
+	//}
 }
 
 let imagesLoaded = false
@@ -316,9 +332,9 @@ let imagesLoaded = false
 completedButton.addEventListener('click', e => {
 	if (imagesLoaded) {
 		drawNextImage()
+
 	}
 })
-
 //adapted from https://stackoverflow.com/questions/31299509/call-a-function-when-html5-canvas-is-ready
 //because the images load asychronously, wait for all the images to load first
 //keeping this information up to date in two separate places is bad design.
