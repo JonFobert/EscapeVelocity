@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
 let userHabit = ''
 
 document.querySelector('.first-card').addEventListener('click', e => {
-	console.log('fired!')
 	document.querySelector('.first-card').classList.add('hidden')
 	document.querySelector('.second-card').classList.remove('hidden')
 });
@@ -49,9 +48,6 @@ form.addEventListener("submit", e => {
 
 function dayUpdate() {
 	document.querySelector('.test').firstChild.nodeValue = `Day ${DayCounter}`
-	
-	console.log("fired day update")
-	console.log(document.querySelector('.test'))
 }
 
 function createHabitEl() {
@@ -248,26 +244,35 @@ function drawPreviouslyDroppedImages() {
 				  image.width, image.height
 		)
 	});
-	
 }
 
 //x 913 to 940   y 492 to 84. 492 - 84 = 408
 
 
 function drawAddFuel() {
+		drawPreviouslyDroppedImages();
+		context.drawImage(fenceImg,
+		  				  0, 0, 446, 113,
+	  					  259, 423, 446, 113)
 	if (fuelLevel < (24 + daysFuelAdded * 24)) {
-			console.log("called drawAddFuel()")
 			context.rect(913, 492, 27, -fuelLevel)
 			context.fillStyle = "red";
 			context.fill();
-			fuelLevel += 2
-		}
-	else {
+			fuelLevel++;
+			context.drawImage(fuelEFImg, 
+							  0, 0, 960, 540,
+							  0, 0, 960, 540)
+	} else {
 		context.rect(913, 492, 27, -fuelLevel)
 		context.fillStyle = "red";
 		context.fill();
+		context.drawImage(fuelEFImg, 
+		  0, 0, 960, 540,
+		  0, 0, 960, 540)
 		daysFuelAdded++
 		runAnimation = false
+		DayCounter++
+		dayUpdate()
 	}
 }
 
@@ -277,31 +282,9 @@ function animateNextFrame() {
 	if (nextImage < imagesDimAndPos.length) {
 		drawImageDropFrame();
 	} else {
-		console.log("called animateNextFrame()")
 		drawAddFuel()
 	}
 }
-
-function main(time) {
-	if(runAnimation) {
-		requestAnimationFrame(main);
-		//deltaTime = time - lastTime;
-		//lastTime = time;
-		animateNextFrame();
-	}
-}
-
-//When the button is hit:
-//	Drop the part down to it's position
-//  stop at a specific point
-//When the button is hit again
-//	keep the first part it it's position
-//	drop the second part down
-//When the button is hit again etc...
-
-//when you are dropping the first part you need to keep the second one stationary. To do this: when you reach the end of an image
-//being dropped add that image and it's x and y pos to an array.
-//Then when drawing the next image first loop through the array and draw the original images in their fixed positions.
 
 function drawBackground() {
 	imagesLoaded = true
@@ -321,8 +304,6 @@ function drawNextImage() {
 	//if (nextImage < imagesDimAndPos.length + 10) {
 		runAnimation = true;
 		requestAnimationFrame(main)
-		
-		console.log(daysFuelAdded)
 	//}
 }
 
@@ -330,7 +311,7 @@ let imagesLoaded = false
 //This is dangerous, because if all the images are not yet loaded the button will not do anything.
 //Consider a loading screen or a way to disable input.
 completedButton.addEventListener('click', e => {
-	if (imagesLoaded) {
+	if (imagesLoaded && DayCounter < 28) {
 		drawNextImage()
 
 	}
@@ -340,6 +321,14 @@ completedButton.addEventListener('click', e => {
 //keeping this information up to date in two separate places is bad design.
 //See if you can find some other way to do this
 
+function main(time) {
+	if(runAnimation) {
+		requestAnimationFrame(main);
+		//deltaTime = time - lastTime;
+		//lastTime = time;
+		animateNextFrame();
+	}
+}
 
 var images = [
 			'otherImages/backgroundNew.png',
