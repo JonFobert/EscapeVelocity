@@ -52,11 +52,11 @@ function dayUpdate() {
 
 function createHabitEl() {
 	let headingNode = document.querySelector('.habit-heading');
-	let headingTextNode = document.createTextNode(`My New Habit Will Be:`)
+	let headingTextNode = document.createTextNode(`Did you ${userHabit} today?`)
 	headingNode.appendChild(headingTextNode);
-	let valueNode = document.querySelector('.new-habit-value');
-	let valueTextNode = document.createTextNode(`${userHabit}`)
-	valueNode.appendChild(valueTextNode);
+	//let valueNode = document.querySelector('.new-habit-value');
+	//let valueTextNode = document.createTextNode(`${userHabit}`)
+	//valueNode.appendChild(valueTextNode);
 }
 
 //create background image elements

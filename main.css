@@ -55,7 +55,7 @@ table {
 
 body {
 	font-family: 'Rubik', sans-serif;
-	background-color: rgba(248, 248, 248, 1);
+	background-color: #2B2B2B;
 }
 
 #page {
@@ -261,6 +261,10 @@ body {
 
 #habit-field {
 	font-size: 16px;
+	background-color: #272726;
+    border: none;
+    color: white;
+    border-bottom: 1px solid white;
 }
 
 input[type="submit"] {
@@ -279,6 +283,10 @@ input[type="submit"]:hover {
 	border-color: white;
 }
 
+button:focus {
+	outline: 0;
+}
+
 .no-task-entered {
 	background-color: #0c0c0c9c;
 }
@@ -294,6 +302,7 @@ input[type="submit"]:hover {
 	align-self: center;
 	text-align: center;
 	font-family: 'Staatliches', cursive;
+	color: white;
 }
 
 .page-heading h2 {
@@ -353,6 +362,7 @@ input[type="submit"]:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	color: white;
 }
 
 
@@ -368,17 +378,17 @@ input[type="submit"]:hover {
 
 .completed-button{
 	font-size: 20px;
-	border-color: #074F57;
+	border-color: #4f9818;
 	border-width: 3px;
     border-radius: 6px;
-    background-color: #074F57;
-    color: white;
+    background-color: #4f9818;
+    color: black;
     padding: 4px 8px 4px 8px;
     margin: 5px 0 5px 0;
 }
 
 .completed-button:hover {
 	color: black;
-	background-color: white;
-	border-color: #074F57;
+	background-color: #3f7913;
+	border-color: #3f7913;
 }
