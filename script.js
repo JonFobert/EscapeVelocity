@@ -44,6 +44,9 @@ form.addEventListener("submit", e => {
 	createHabitEl();
 	document.querySelector('.page-heading').classList.remove('heading-not-shown')
 	document.querySelector('.page-heading').classList.add('heading-shown')
+	document.querySelector('.completed-button').classList.add('button-shown')
+	document.querySelector('.habit-heading').classList.add('habit-heading-shown')
+
 })
 
 function dayUpdate() {

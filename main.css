@@ -312,7 +312,7 @@ button:focus {
 
 .page-heading.heading-shown h2 {
 	animation-name: fadeInPageHeading;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
 
@@ -333,8 +333,8 @@ button:focus {
 
 .page-heading.heading-shown h3 {
 	animation-name: fadeInDay;
-    animation-duration: 2s;
-    animation-delay: 1s;
+    animation-duration: 1.5s;
+    animation-delay: 0.5s;
     animation-fill-mode: forwards;
 }
 
@@ -358,7 +358,6 @@ button:focus {
 	grid-row: 3 / 4;
 	grid-column: 2 / 3;
 	justify-self: center;
-	align-self: center;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -368,15 +367,34 @@ button:focus {
 
 .habit-heading {
 	font-size: 20px;
-	margin: 5px 0 5px 0;
+	margin: 10px 0 5px 0;
+	opacity: 0;
 }
 
-.new-habit-value {
+.habit-heading.habit-heading-shown {
+	animation-name: fadeInHabitHeading;
+    animation-duration: 0.5s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInHabitHeading {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+/*.new-habit-value {
 	font-size: 20px;
 	margin: 5px 0 5px 0;
-}
+}*/
 
 .completed-button{
+	opacity: 0;
 	font-size: 20px;
 	border-color: #4f9818;
 	border-width: 3px;
@@ -386,6 +404,25 @@ button:focus {
     padding: 4px 8px 4px 8px;
     margin: 5px 0 5px 0;
 }
+
+.completed-button.button-shown {
+	animation-name: fadeInButton;
+    animation-duration: 0.5s;
+    animation-delay: 2.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInButton {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+
 
 .completed-button:hover {
 	color: black;
