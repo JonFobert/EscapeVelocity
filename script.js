@@ -224,7 +224,7 @@ let imagesDimAndPos = [nozzle, frameBottom, frameMiddleLower, frameMiddleUpper,
 					   frameTop, rocketWindow, noseCone, leftSideBooster,
 					   middleSideBooster, rightSideBooster];
 
-let nextImage = 0;
+let currentPart = 0;
 let DayCounter = 1;
 let fuelLevel = 0
 let daysFuelAdded = 0
@@ -241,17 +241,17 @@ let partRaisedUp = false;
 //Then, if the current part has reached it's final position draw it at it's final position and add it to the previously
 //drawn images. Finally, set the variables up for the next image.
 function drawImageDropFrame() {
-	if (nextImage < imagesDimAndPos.length && partFirstDroppedDown == false) {
-		if (imagesDimAndPos[nextImage].currentYPos >= imagesDimAndPos[nextImage].firstFinalYPos) {
+	if (currentPart < imagesDimAndPos.length && partFirstDroppedDown == false) {
+		if (imagesDimAndPos[currentPart].currentYPos >= imagesDimAndPos[currentPart].firstFinalYPos) {
 			firstDrawPartAtEndPosition()
 		} else {
 		firstDrawPartGoingDown();
 		}
 	} else {
-		if (imagesDimAndPos[nextImage].currentYPos >= imagesDimAndPos[nextImage].secondFinalYPos && partRaisedUp == true) {
+		if (imagesDimAndPos[currentPart].currentYPos >= imagesDimAndPos[currentPart].secondFinalYPos && partRaisedUp == true) {
 			drawPartAtEndPosition();
 		} else {
-			if (imagesDimAndPos[nextImage].currentYPos > -150 && partRaisedUp == false) {
+			if (imagesDimAndPos[currentPart].currentYPos > -150 && partRaisedUp == false) {
 				drawPartGoingUp();
 			} else {
 				partRaisedUp = true
@@ -264,13 +264,13 @@ function drawImageDropFrame() {
 function firstDrawPartGoingDown() {
 	drawFirstPreviouslyDroppedImages();
 	//draw the currrent part in it's next position
-	context.drawImage(imagesDimAndPos[nextImage].image,
+	context.drawImage(imagesDimAndPos[currentPart].image,
 				  //source rectangle
-				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+				  0, 0, imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height,
 				  //destination rectange
-				  imagesDimAndPos[nextImage].firstFinalXPos, imagesDimAndPos[nextImage].currentYPos, 
-				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-	imagesDimAndPos[nextImage].currentYPos+= 6
+				  imagesDimAndPos[currentPart].firstFinalXPos, imagesDimAndPos[currentPart].currentYPos, 
+				  imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height);
+	imagesDimAndPos[currentPart].currentYPos+= 6
 	//draw the fence
 	context.drawImage(fenceImg,
   				  0, 0, 446, 113,
@@ -282,12 +282,12 @@ function firstDrawPartGoingDown() {
 
 function firstDrawPartAtEndPosition() {
 	drawFirstPreviouslyDroppedImages();
-	context.drawImage(imagesDimAndPos[nextImage].image,
+	context.drawImage(imagesDimAndPos[currentPart].image,
 			  //source rectangle
-			  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+			  0, 0, imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height,
 			  //destination rectange
-			  imagesDimAndPos[nextImage].firstFinalXPos, imagesDimAndPos[nextImage].firstFinalYPos, 
-			  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
+			  imagesDimAndPos[currentPart].firstFinalXPos, imagesDimAndPos[currentPart].firstFinalYPos, 
+			  imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height);
 	context.drawImage(fenceImg,
 			  0, 0, 446, 113,
 			  259, 423, 446, 113)
@@ -295,12 +295,12 @@ function firstDrawPartAtEndPosition() {
 				  0, 0, 960, 540,
 				  0, 0, 960, 540)
 	runAnimation = false;
-	alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
-	nextImage++
+	alreadyAnimatedImages.push(imagesDimAndPos[currentPart]);
+	currentPart++
 	DayCounter++
 	dayUpdate()
 	if (DayCounter == 11) {
-		nextImage = 0;
+		currentPart = 0;
 		partFirstDroppedDown = true;
 	}
 }
@@ -310,19 +310,19 @@ function firstDrawPartAtEndPosition() {
 	//First lift the first part up from it's position. Then drop it down at it's new postion.
 function drawPartGoingUp() {
 	drawPreviouslyDroppedImages()
-	context.drawImage(imagesDimAndPos[nextImage].image,
+	context.drawImage(imagesDimAndPos[currentPart].image,
 					  //source rectangle
-					  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+					  0, 0, imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height,
 					  //destination rectange
-					  imagesDimAndPos[nextImage].firstFinalXPos, imagesDimAndPos[nextImage].currentYPos, 
-					  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-	context.drawImage(imagesDimAndPos[nextImage].image,
+					  imagesDimAndPos[currentPart].firstFinalXPos, imagesDimAndPos[currentPart].currentYPos, 
+					  imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height);
+	context.drawImage(imagesDimAndPos[currentPart].image,
 						  //source rectangle
-						  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+						  0, 0, imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height,
 						  //destination rectange
-						  imagesDimAndPos[nextImage].secondFinalXPos, imagesDimAndPos[nextImage].currentYPos, 
-						  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-			imagesDimAndPos[nextImage].currentYPos-= 6
+						  imagesDimAndPos[currentPart].secondFinalXPos, imagesDimAndPos[currentPart].currentYPos, 
+						  imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height);
+			imagesDimAndPos[currentPart].currentYPos-= 6
 			//draw the fence
 			context.drawImage(fenceImg,
 		  				  0, 0, 446, 113,
@@ -336,13 +336,13 @@ function drawPartGoingDown() {
 	//draw the already existing parts in their final positions
 		drawPreviouslyDroppedImages();
 		//draw the currrent part in it's next position
-		context.drawImage(imagesDimAndPos[nextImage].image,
+		context.drawImage(imagesDimAndPos[currentPart].image,
 					  //source rectangle
-					  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+					  0, 0, imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height,
 					  //destination rectange
-					  imagesDimAndPos[nextImage].secondFinalXPos, imagesDimAndPos[nextImage].currentYPos, 
-					  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
-		imagesDimAndPos[nextImage].currentYPos+= 6
+					  imagesDimAndPos[currentPart].secondFinalXPos, imagesDimAndPos[currentPart].currentYPos, 
+					  imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height);
+		imagesDimAndPos[currentPart].currentYPos+= 6
 		//draw the fence
 		context.drawImage(fenceImg,
 	  				  0, 0, 446, 113,
@@ -354,12 +354,12 @@ function drawPartGoingDown() {
 
 function drawPartAtEndPosition() {
 	drawPreviouslyDroppedImages();
-		context.drawImage(imagesDimAndPos[nextImage].image,
+		context.drawImage(imagesDimAndPos[currentPart].image,
 				  //source rectangle
-				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+				  0, 0, imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height,
 				  //destination rectange
-				  imagesDimAndPos[nextImage].secondFinalXPos, imagesDimAndPos[nextImage].secondFinalYPos, 
-				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
+				  imagesDimAndPos[currentPart].secondFinalXPos, imagesDimAndPos[currentPart].secondFinalYPos, 
+				  imagesDimAndPos[currentPart].width, imagesDimAndPos[currentPart].height);
 		context.drawImage(fenceImg,
 				  0, 0, 446, 113,
 				  259, 423, 446, 113)
@@ -367,8 +367,8 @@ function drawPartAtEndPosition() {
 					  0, 0, 960, 540,
 					  0, 0, 960, 540)
 		runAnimation = false;
-		alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
-		nextImage++
+		alreadyAnimatedImages.push(imagesDimAndPos[currentPart]);
+		currentPart++
 		DayCounter++
 		dayUpdate() 
 }
@@ -434,7 +434,7 @@ function drawAddFuel() {
 function animateNextFrame() {
 	context.clearRect(0, 0, canvas.width, canvas.height)
 	drawBackground();
-	if (nextImage < (2 * imagesDimAndPos.length)) {
+	if (currentPart < (2 * imagesDimAndPos.length)) {
 		drawImageDropFrame();
 	} else {
 		drawAddFuel()
@@ -455,8 +455,8 @@ function drawBackground() {
 }
 
 //When the completed button is pressed draw the next image.
-function drawNextImage() {
-	//if (nextImage < imagesDimAndPos.length + 10) {
+function drawcurrentPart() {
+	//if (currentPart < imagesDimAndPos.length + 10) {
 		runAnimation = true;
 		requestAnimationFrame(main)
 	//}
@@ -467,7 +467,7 @@ let imagesLoaded = false
 //Consider a loading screen or a way to disable input.
 completedButton.addEventListener('click', e => {
 	if (imagesLoaded && DayCounter < 28) {
-		drawNextImage()
+		drawcurrentPart()
 
 	}
 })
