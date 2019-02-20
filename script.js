@@ -218,7 +218,51 @@ let startingYPos = -150;
 //Then, if the current part has reached it's final position draw it at it's final position and add it to the previously
 //drawn images. Finally, set the variables up for the next image.
 function drawImageDropFrame() {
-	if (startingYPos >= imagesDimAndPos[nextImage].secondFinalYPos) {
+	if (nextImage <= imagesDimAndPos.length) {
+		console.log("called")
+		if (startingYPos >= imagesDimAndPos[nextImage].firstFinalYPos) {
+			drawFirstPreviouslyDroppedImages();
+			context.drawImage(imagesDimAndPos[nextImage].image,
+					  //source rectangle
+					  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+					  //destination rectange
+					  imagesDimAndPos[nextImage].firstFinalXPos, imagesDimAndPos[nextImage].firstFinalYPos, 
+					  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
+			context.drawImage(fenceImg,
+					  0, 0, 446, 113,
+					  259, 423, 446, 113)
+			context.drawImage(fuelEFImg, 
+						  0, 0, 960, 540,
+						  0, 0, 960, 540)
+			runAnimation = false;
+			alreadyAnimatedImages.push(imagesDimAndPos[nextImage]);
+			startingYPos = -150;
+			nextImage++
+			DayCounter++
+			dayUpdate() 
+		} else {
+			console.log("first else called")
+			//draw the already existing parts in their final positions
+			drawFirstPreviouslyDroppedImages();
+			//draw the currrent part in it's next position
+			context.drawImage(imagesDimAndPos[nextImage].image,
+						  //source rectangle
+						  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
+						  //destination rectange
+						  imagesDimAndPos[nextImage].firstFinalXPos, startingYPos, 
+						  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
+			startingYPos+= 6
+			//draw the fence
+			context.drawImage(fenceImg,
+		  				  0, 0, 446, 113,
+		  				  259, 423, 446, 113)
+			context.drawImage(fuelEFImg, 
+						  0, 0, 960, 540,
+						  0, 0, 960, 540)
+		}
+	}
+	else {
+		if (startingYPos >= imagesDimAndPos[nextImage].secondFinalYPos) {
 		drawPreviouslyDroppedImages();
 		context.drawImage(imagesDimAndPos[nextImage].image,
 				  //source rectangle
@@ -238,7 +282,7 @@ function drawImageDropFrame() {
 		nextImage++
 		DayCounter++
 		dayUpdate() 
-	} else {
+		} else {
 		//draw the already existing parts in their final positions
 		drawPreviouslyDroppedImages();
 		//draw the currrent part in it's next position
@@ -256,9 +300,22 @@ function drawImageDropFrame() {
 		context.drawImage(fuelEFImg, 
 					  0, 0, 960, 540,
 					  0, 0, 960, 540)
+		}
 	}
 }
 
+
+function drawFirstPreviouslyDroppedImages() {
+	alreadyAnimatedImages.forEach(image => {
+		context.drawImage(image.image,
+				  //source rectangle
+				  0, 0, image.width, image.height,
+				  //destination rectange
+				  image.firstFinalXPos, image.firstFinalYPos, 
+				  image.width, image.height
+		)
+	});
+}
 
 function drawPreviouslyDroppedImages() {
 	alreadyAnimatedImages.forEach(image => {
@@ -305,7 +362,7 @@ function drawAddFuel() {
 function animateNextFrame() {
 	context.clearRect(0, 0, canvas.width, canvas.height)
 	drawBackground();
-	if (nextImage < imagesDimAndPos.length) {
+	if (nextImage < (2 * imagesDimAndPos.length)) {
 		drawImageDropFrame();
 	} else {
 		drawAddFuel()
