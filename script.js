@@ -97,86 +97,107 @@ let sideBoosterImg = document.createElement("img");
 sideBoosterImg.src = "rocketParts/sideBooster.png"
 
 
+
 //Define the location of the images for drawing.
 
 	let nozzle = {
 		image: nozzleImg,
 		width: 68,
 		height: 40,
-		xPos: 450,
-		finalYPos: 450
+		firstFinalXPos: 100,
+		firstFinalYPos: 450,
+		secondXPos: 450,
+		secondFinalYPos: 450
 	};
 
 	let frameBottom = {
 		image: frameBottomImg,
 		width: 68,
 		height: 64,
-		xPos: 450,
-		finalYPos: 386
+		firstFinalXPos: 125,
+		firstFinalYPos: 450,
+		secondXPos: 450,
+		secondFinalYPos: 386
 	};
 
 	 let frameMiddleLower = {
 	 	image: frameMiddleImg,
 		width: 68,
 		height: 64,
-		xPos: 450,
-		finalYPos: 322
+		firstFinalXPos: 150,
+		firstFinalYPos: 450,
+		secondXPos: 450,
+		secondFinalYPos: 322
 	};
 
 	let frameMiddleUpper = {
 		image: frameMiddleImg,
 		width: 68,
 		height: 64,
-		xPos: 450,
-		finalYPos: 258
+		firstFinalXPos: 175,
+		firstFinalYPos: 450,
+		secondXPos: 450,
+		secondFinalYPos: 258
 	};
 
 	let frameTop = {
 		image: frameTopImg,
 		width: 68,
 		height: 64,
-		xPos: 450,
-		finalYPos: 194
+		firstFinalXPos: 200,
+		firstFinalYPos: 450,
+		secondXPos: 450,
+		secondFinalYPos: 194
 	};
 
 	let rocketWindow = {
 		image: rocketWindowImg,
 		width: 28,
 		height: 28,
-		xPos: 470,
-		finalYPos: 210
+		firstFinalXPos: 225,
+		firstFinalYPos: 450,
+		secondXPos: 470,
+		secondFinalYPos: 210
 	};
 
 	let noseCone = {
 		image: noseConeImg,
 		width: 68,
 		height: 78,
-		xPos: 450,
-		finalYPos: 116
+		firstFinalXPos: 250,
+		firstFinalYPos: 450,
+		secondXPos: 450,
+		secondFinalYPos: 116
 	};
 
 	let leftSideBooster = {
 		image: sideBoosterImg,
 		width: 29,
 		height: 170,
-		xPos: 422,
-		finalYPos: 315
+		firstFinalXPos: 275,
+		firstFinalYPos: 450,
+		secondXPos: 422,
+		secondFinalYPos: 315
 	};
 
 	let middleSideBooster = {
 		image: sideBoosterImg,
 		width: 29,
 		height: 170,
-		xPos: 468,
-		finalYPos: 296
+		firstFinalXPos: 300,
+		firstFinalYPos: 450,
+		secondXPos: 468,
+		secondFinalYPos: 296
 	}
 
 	let rightSideBooster = {
 		image: sideBoosterImg,
 		width: 29,
 		height: 170,
-		xPos: 516,
-		finalYPos: 315	
+		firstFinalXPos: 325,
+		firstFinalYPos: 450,
+		secondXPos: 516,
+		secondFinalYPos: 315	
 	}
 
 let imagesDimAndPos = [nozzle, frameBottom, frameMiddleLower, frameMiddleUpper, 
@@ -191,17 +212,19 @@ let runAnimation = true;
 let alreadyAnimatedImages = [];
 let startingYPos = -150;
 
+
+
 //Draw the next frame. To do this you first need to draw the previously drawn parts in their final positions.
 //Then, if the current part has reached it's final position draw it at it's final position and add it to the previously
 //drawn images. Finally, set the variables up for the next image.
 function drawImageDropFrame() {
-	if (startingYPos >= imagesDimAndPos[nextImage].finalYPos) {
+	if (startingYPos >= imagesDimAndPos[nextImage].secondFinalYPos) {
 		drawPreviouslyDroppedImages();
 		context.drawImage(imagesDimAndPos[nextImage].image,
 				  //source rectangle
 				  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
 				  //destination rectange
-				  imagesDimAndPos[nextImage].xPos, imagesDimAndPos[nextImage].finalYPos, 
+				  imagesDimAndPos[nextImage].secondXPos, imagesDimAndPos[nextImage].secondFinalYPos, 
 				  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
 		context.drawImage(fenceImg,
 				  0, 0, 446, 113,
@@ -223,7 +246,7 @@ function drawImageDropFrame() {
 					  //source rectangle
 					  0, 0, imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height,
 					  //destination rectange
-					  imagesDimAndPos[nextImage].xPos, startingYPos, 
+					  imagesDimAndPos[nextImage].secondXPos, startingYPos, 
 					  imagesDimAndPos[nextImage].width, imagesDimAndPos[nextImage].height);
 		startingYPos+= 6
 		//draw the fence
@@ -243,7 +266,7 @@ function drawPreviouslyDroppedImages() {
 				  //source rectangle
 				  0, 0, image.width, image.height,
 				  //destination rectange
-				  image.xPos, image.finalYPos, 
+				  image.secondXPos, image.secondFinalYPos, 
 				  image.width, image.height
 		)
 	});
