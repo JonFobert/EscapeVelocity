@@ -310,7 +310,7 @@ function drawFrame() {
 		//greater than or equal to it's prescribed final position draw the part at the end position
 		if (imagesDimAndPos[currentPartIndex].currentYPos >= imagesDimAndPos[currentPartIndex].secondFinalYPos && partRaisedUp == true) {
 			console.log(4)
-			imagesDimAndPos[currentPartIndex].currentYPos = imagesDimAndPos[currentPartIndex].firstFinalYPos;
+			imagesDimAndPos[currentPartIndex].currentYPos = imagesDimAndPos[currentPartIndex].secondFinalYPos;
 			drawParts();
 			drawNonBackgroundImages();
 			runAnimation = false;
@@ -335,16 +335,47 @@ function drawFrame() {
 				drawNonBackgroundImages();
 			}
 		}
-	} else {
+	} else if (daysFuelAdded < 17) {
 	  	drawAddFuel();
 	  	drawParts();
+		drawNonBackgroundImages();
+	} else {
+		context.rect(913, 492, 27, -fuelLevel)
+		context.fillStyle = "red";
+		context.fill();
+		context.drawImage(fuelEFImg, 
+		  0, 0, 960, 540,
+		  0, 0, 960, 540)
+	  	drawParts();
 		drawNonBackgroundImages()
-		DayCounter++;
-		dayUpdate()
-		daysFuelAdded++;
-		runAnimation = false;
 	}
 }
+
+function drawAddFuel() {
+	if (fuelLevel < (24 + daysFuelAdded * 24)) {
+			context.rect(913, 492, 27, -fuelLevel)
+			context.fillStyle = "red";
+			context.fill();
+			fuelLevel++;
+			context.drawImage(fuelEFImg, 
+							  0, 0, 960, 540,
+							  0, 0, 960, 540)
+			console.log("addingFuel")
+	} else {
+		context.rect(913, 492, 27, -fuelLevel)
+		context.fillStyle = "red";
+		context.fill();
+		context.drawImage(fuelEFImg, 
+		  0, 0, 960, 540,
+		  0, 0, 960, 540)
+		daysFuelAdded++
+		DayCounter++
+		dayUpdate()
+		runAnimation = false
+	}
+}
+
+
 
 
 function drawNonBackgroundImages() {
@@ -508,6 +539,7 @@ function drawPreviouslyDroppedImages() {
 //x 913 to 940   y 492 to 84. 492 - 84 = 408
 
 
+
 function drawAddFuel() {
 		drawPreviouslyDroppedImages();
 		context.drawImage(fenceImg,
@@ -521,6 +553,7 @@ function drawAddFuel() {
 			context.drawImage(fuelEFImg, 
 							  0, 0, 960, 540,
 							  0, 0, 960, 540)
+			console.log("addingFuel")
 	} else {
 		context.rect(913, 492, 27, -fuelLevel)
 		context.fillStyle = "red";
