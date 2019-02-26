@@ -297,7 +297,7 @@ function drawFrame() {
 				drawNonBackgroundImages();
 			}
 		}
-	} else if (daysFuelAdded < 17) {
+	} else if (daysFuelAdded < 17) { 
 	  	drawAddFuel();
 	  	drawParts();
 		drawNonBackgroundImages();
@@ -376,7 +376,7 @@ let imagesLoaded = false
 //This is dangerous, because if all the images are not yet loaded the button will not do anything.
 //Consider a loading screen or a way to disable input.
 completedButton.addEventListener('click', e => {
-	if (imagesLoaded && DayCounter < 28) {
+	if (imagesLoaded && DayCounter < 66) {
 		runAnimation = true;
 		requestAnimationFrame(main)
 
